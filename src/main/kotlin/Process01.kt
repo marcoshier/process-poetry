@@ -4,22 +4,28 @@ import tools.WebInputType
 import kotlin.concurrent.thread
 import kotlin.random.Random
 
+
 fun main() {
 
     val inputList = mutableListOf<Input>()
 
     world.addListener("visual")
-    world.addListener("audio")
 
-    var energyK = (time.daysOfTheWeek.indexOf(time.today) * 0.33 +
+    var energyK = (
+            time.daysOfTheWeek.indexOf(time.today) * 0.33 +
             world.weather.sunAmount * 0.33 +
             body.healthLevel * 0.2 +
-            Math.random()) / 4
+            Math.random()
+            ) / 4
 
     if (energyK > 0.5) {
         thread {
             tools.music.play()
             world.listeners["audio"]?.append(tools.music.output)
+
+            while (true) {
+                tools.music.work()
+            }
         }
     }
 
@@ -27,11 +33,12 @@ fun main() {
     var freeTime = 60.0 * (24.0 - time.workHours - body.sleep.hoursRequired)
 
     // gather input
-    while (enoughInput || (inputList.size <= Random.nextInt(1, 100) * energyK && freeTime > 0.0)) {
+    while (!enoughInput || (inputList.size <= Random.nextInt(1, 100) * energyK && freeTime > 0.0)) {
 
         val input = Input()
 
         input.build {
+
             for (friend in world.friends.availableToday) {
                 val conversation = body.talk(friend)
 
@@ -41,6 +48,7 @@ fun main() {
 
                 freeTime -= conversation.duration
             }
+
 
             tools.web.createRabbitHole()
 
@@ -77,8 +85,10 @@ fun main() {
 
         }
 
-    }
 
+        inputList.add(input)
+
+    }
 }
 
 

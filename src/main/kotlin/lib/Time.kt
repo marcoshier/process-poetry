@@ -1,5 +1,6 @@
 package lib
 
+import org.openrndr.events.Event
 import java.util.Calendar
 
 class Time {
@@ -11,4 +12,5 @@ class Time {
     val today
         get() = daysOfTheWeek[calendar.get(Calendar.DAY_OF_WEEK)]
 
+    val nextDay = Event<Unit>()
 }

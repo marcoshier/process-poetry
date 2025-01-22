@@ -8,6 +8,8 @@ class World {
     val friends: Friends = Friends()
     val listeners = mutableMapOf<String, Listener>()
 
+    val sea = ""
+
     fun addListener(type: String) {
         listeners[type] = Listener(type)
     }
@@ -15,6 +17,10 @@ class World {
     fun locationOf(entity: Any): Location = when(entity) {
         is Body -> Location.HOUSE  // Default location
         else -> Location.UNKNOWN
+    }
+
+    fun sit(how: () -> Unit) {
+
     }
 
     operator fun get(key: String): Listener? = listeners[key]
