@@ -1,3 +1,4 @@
+/*
 import io.Input
 import lib.Present
 import lib.random
@@ -58,4 +59,4 @@ var             worry = 0
 val lightly = ""
 fun main() {
     begins()
-}
+}*/

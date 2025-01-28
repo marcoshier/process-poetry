@@ -1,3 +1,4 @@
+/*
 import body.Body
 import lib.Time
 import lib.Void
@@ -11,4 +12,4 @@ val mind = Mind()
 val tools = Toolkit()
 val time = Time()
 val void = lib.void
-val gone = lib.gone
+val gone = lib.gone*/

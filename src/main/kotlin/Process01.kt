@@ -1,3 +1,4 @@
+/*
 import io.Input
 import tools.Web
 import tools.WebInputType
@@ -5,7 +6,7 @@ import kotlin.concurrent.thread
 import kotlin.random.Random
 
 
-fun main() {
+fun process1() {
 
     val inputList = mutableListOf<Input>()
 
@@ -92,3 +93,4 @@ fun main() {
 }
 
 
+*/

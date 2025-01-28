@@ -1,9 +1,16 @@
 package lib
 
+import Visualizable
 import org.openrndr.events.Event
+import visualizer.Colors
+import visualizer.Properties
 import java.util.Calendar
 
-class Time {
+@Properties(
+    Colors.LIGHT_GREEN,
+    0.5
+)
+class Time: Visualizable() {
     val calendar = Calendar.getInstance()
 
     val daysOfTheWeek = listOf("MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY")

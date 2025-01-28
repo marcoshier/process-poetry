@@ -1,9 +1,16 @@
 package world
 
+import Visualizable
 import body.Body
 import body.Listener
+import visualizer.Colors
+import visualizer.Properties
 
-class World {
+@Properties(
+    Colors.LIGHT_GREEN,
+    1.0
+)
+class World: Visualizable() {
     val weather: Weather = Weather()
     val friends: Friends = Friends()
     val listeners = mutableMapOf<String, Listener>()

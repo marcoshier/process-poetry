@@ -1,10 +1,17 @@
 package body
 
+import Visualizable
 import lib.Present
+import visualizer.Colors
+import visualizer.Properties
 import world.Friend
 import kotlin.random.Random
 
-class Body: Present {
+@Properties(
+    Colors.PURPLE,
+    0.5
+)
+class Body: Present, Visualizable() {
     val healthLevel: Double = Random.nextDouble(0.0, 1.0)
 
     val sleep = Sleep()

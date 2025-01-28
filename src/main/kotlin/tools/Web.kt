@@ -1,40 +1,24 @@
 package tools
 
+import Visualizable
 import body.Body
-import time
+import visualizer.Colors
+import visualizer.Properties
 import kotlin.random.Random
 
-class Web: Tool {
+@Properties(
+    Colors.ORANGE_SHADE_1_TINT_1,
+    0.2,
+    Toolkit::class
+)
+class Web: Tool, Visualizable() {
 
     override val input: Any = listOf("mouse", "keyboard")
     override val output: Any = listOf("information")
 
-    val rabbitHoles = mutableMapOf<String, List<Webpage>>()
-
-    fun createRabbitHole() {
-        val today = time.today
-        rabbitHoles[today] = generateWebpages()
-    }
-
-    private fun generateWebpages(): List<Webpage> {
-        return List(Random.nextInt(5, 20)) {
-            Webpage(
-                existentialDoomFactor = Random.nextDouble(),
-                type = if (Random.nextBoolean()) WebInputType.NEWS else WebInputType.OTHER
-            )
-        }
-    }
-
-    operator fun get(day: String): List<Webpage> = rabbitHoles[day] ?: emptyList()
-
-
-    // Error handling system
-    open class Error : Throwable() {
-        var value = ""
-
+    fun open(vararg input: WebInput) {
 
     }
-
 }
 
 
