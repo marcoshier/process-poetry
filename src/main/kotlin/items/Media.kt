@@ -6,7 +6,7 @@ import org.openrndr.internal.colorBufferLoader
 import java.io.File
 import kotlin.random.Random
 
-class VideoItem() : MediaItem {
+class VideoItem() {
     val path: String = ""
 }
 
@@ -14,8 +14,7 @@ val defaultImage by lazy {
     ColorBuffer.fromFile(File("data/images/image.png"))
 }
 
-class ImageItem() : MediaItem {
-    val path: String = ""
+class ImageItem(path: String = "") {
 
     private val imageProxy: ColorBufferProxy = colorBufferLoader.loadFromUrl(path)
     val image: ColorBuffer
@@ -23,8 +22,4 @@ class ImageItem() : MediaItem {
             imageProxy.touch()
             return imageProxy.colorBuffer ?: defaultImage
         }
-}
-
-interface MediaItem {
-
 }
