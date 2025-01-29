@@ -1,8 +1,8 @@
 package output
 
-import registry.Registerable
+import registry.Registrable
 
-abstract class Output: Registerable() {
+abstract class Output: Registrable() {
 
     fun show() {
 

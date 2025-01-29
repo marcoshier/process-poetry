@@ -1,45 +1,20 @@
 package tools
 
-import Visualizable
-import body.Body
-import registry.Colors
-import registry.VisualizerProperties
+import output.ImageOutput
+import registry.Registrable
+import registry.Visualizable
 
-@VisualizerProperties(
-    Colors.ORANGE_SHADE_1_TINT_1,
-    0.2,
-    Toolkit::class
-)
-class Web: Tool, Visualizable() {
+fun web(block: () -> Unit) {
+    val webInstance = WebInstance()
 
-    override val input: Any = listOf("mouse", "keyboard")
-    override val output: Any = listOf("information")
-
-    fun open(action: () -> Unit) {
-
+    webInstance.run {
+        block()
     }
 }
 
+@Visualizable
+class WebInstance: Registrable() {
 
-class Webpage(
-    val existentialDoomFactor: Double,
-    private val type: WebInputType
-) {
-    var inputType: WebInputType = WebInputType.OTHER
+    val imageOutputs = mutableListOf<ImageOutput>()
 
-    fun read(body: Body) {
-        // Simulated webpage reading
-    }
-
-    fun findInputs() {
-        inputType = type
-    }
-
-    fun close() {
-        // Cleanup resources
-    }
-}
-
-enum class WebInputType {
-    NEWS, OTHER
 }

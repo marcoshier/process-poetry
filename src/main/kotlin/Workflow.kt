@@ -1,11 +1,11 @@
 import input.Input
 import output.Output
-import registry.Registry
-import registry.getMetadata
-import registry.isolated
-import registry.Metadata
+import registry.*
 
 class Workflow {
+
+    val allInputs = mutableListOf<Input>()
+    val allOutputs = mutableListOf<Input>()
 
     val inputMetadata = mutableListOf<Metadata<Input>>()
     val outputMetadata = mutableListOf<Metadata<Output>>()
@@ -16,21 +16,32 @@ class Workflow {
 
             val metadata = getMetadata<Input>()
 
+            println(metadata)
+
+            val inputs = getInputs()
+
+            println(inputs)
+
             inputMetadata.add(
                 metadata
             )
+
+            allInputs.addAll(inputs)
         }
     }
 
     fun produceOutput(outputCollector: (List<Input>) -> Unit) {
         Registry.isolated {
-            outputCollector(Registry.registeredInput)
+            outputCollector(allInputs)
 
             val metadata = getMetadata<Output>()
+            val outputs = getOutputs()
 
             outputMetadata.add(
                 metadata
             )
+
+            outputs.addAll(outputs)
         }
     }
 

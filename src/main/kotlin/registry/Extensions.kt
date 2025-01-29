@@ -8,9 +8,9 @@ fun Registry.isolated(block: () -> Unit) {
     clear()
 }
 
-fun Registry.getVisualizerProperties(): Map<KClass<out Registerable>, Annotation> {
+fun Registry.getVisualData(): Map<KClass<out Registrable>, Annotation?> {
     val props = registeredClasses.associateWith {
-        it.annotations.toList().first { it is VisualizerProperties }
+        it.annotations.toList().firstOrNull { it is Visualizable }
     }
 
     registeredClasses.clear()

@@ -5,27 +5,28 @@ import output.Output
 import kotlin.reflect.KClass
 
 object Registry {
-    val registeredClasses = mutableSetOf<KClass<out Registerable>>()
+    val registeredClasses = mutableSetOf<KClass<out Registrable>>()
 
-    val registeredInput = mutableListOf<Input>()
-    val registeredOutput = mutableListOf<Output>()
+    val registeredInputs = mutableListOf<Input>()
+    val registeredOutputs = mutableListOf<Output>()
 
-    fun registerClass(instance: KClass<out Registerable>) {
+    fun registerClass(instance: KClass<out Registrable>) {
         registeredClasses.add(instance)
     }
 
     fun registerInput(instance: Input) {
-        registeredInput.add(instance)
+        println("adding instance $instance")
+        registeredInputs.add(instance)
     }
 
     fun registerOutput(instance: Output) {
-        registeredOutput.add(instance)
+        registeredOutputs.add(instance)
     }
 
     fun clear() {
         registeredClasses.clear()
-        registeredInput.clear()
-        registeredOutput.clear()
+        registeredInputs.clear()
+        registeredOutputs.clear()
     }
 
 }

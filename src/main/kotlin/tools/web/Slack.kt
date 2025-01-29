@@ -1,7 +1,7 @@
-package input.web
+package tools.web
 
+import input.WebInput
 
-val slack = Slack()
 
 class Slack: WebInput() {
 
@@ -18,8 +18,10 @@ class Slack: WebInput() {
     class SlackChannel(id: String) {
         // scraping?
 
-        fun readLatestMessages() {
-
+        fun readLatestMessages(): List<String> {
+            return listOf("")
         }
     }
+
+
 }

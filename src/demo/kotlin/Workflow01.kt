@@ -1,5 +1,7 @@
-import input.web.*
-import items.ImageItem
+import input.WebInput
+import input.asColorBuffer
+import lib._repeat
+import lib.containsCode
 import lib.rainbowShadeStyle
 import lib.random
 import people.people
@@ -7,10 +9,20 @@ import people.people
 // openrndr imports
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
+import org.openrndr.draw.loadImage
 import org.openrndr.extra.viewbox.viewBox
-import output.Image
+import output.ImageOutput
+import output.InteractiveOutput
 import tools.*
+import tools.ableton.Keyboard
+import tools.ableton.Operator
+import tools.ableton.ableton
+import tools.web.Arena
+import tools.web.Instagram
+import tools.web.Slack
 import visualizer.visualizeWorkflow
+import kotlin.math.cos
+import kotlin.math.sin
 
 
 fun main() {
@@ -26,46 +38,52 @@ fun main() {
 
                 gatherInput {
 
-                    Web().open {
+                    web {
+
+                        val instagram = Instagram()
 
                         instagram.visitProfiles(
                             "andreassygin",
                             "rndrnl",
                             "yewhan_yen_song",
-                        )
+                        ).forEach {
+                            it.loadImages()
+                        }
 
-                        repeat(random(10, 30)) {
+                        _repeat(random(10, 30)) {
                             instagram.visitProfile(people.random())
                         }
 
-                        are_na.visitChannels(
+                        Arena().visitChannels(
                             "generative art",
                             "creative coding"
                         )
 
-                        slack.visitChannel("random").readLatestMessages()
+                        Slack().visitChannel(
+                            "random"
+                        ).readLatestMessages().filter {
+                            it.containsCode()
+                        }
 
                     }
+
                 }
 
-                produceOutput { registeredInputs ->
+                produceOutput { inputs ->
+                    println(inputs)
 
-                    openrndr(Image::class) {
-                        val selectedInput = registeredInputs.random()
-                        if (selectedInput.mediaItems.isNotEmpty()) {
-                            val mediaItem = selectedInput.mediaItems.first()
+                    val sketch = openrndr(ImageOutput::class) {
 
-                            if (mediaItem is ImageItem) {
-                                drawer.image(mediaItem.image)
-                            }
+                        val webInputs = inputs.filterIsInstance<WebInput>()
+                        val randomWebInput = webInputs.first()
 
-                            perturb()
+                        println(webInputs.map { it.images })
 
-                            shade(rainbowShadeStyle)
+                        val image = randomWebInput.images.first()
 
-                            attachGUI()
-                        }
+                        drawer.image(image.asColorBuffer())
                     }
+
 
                     ableton {
                         setTempo(140)
@@ -94,18 +112,31 @@ fun main() {
 
                     }
 
+
+                    openrndr(InteractiveOutput::class) {
+                        val image = loadImage(sketch.base64)
+
+                        val perturbed = image.perturb(
+                            scale = cos(seconds) * 0.5 + 0.5,
+                            frequency = sin(seconds * 0.5),
+                            amp = mouse.position.x / width
+                        )
+
+                        perturbed.shade(this@program, rainbowShadeStyle)
+                    }
+
                 }
             }
 
 
-            val vb = viewBox(drawer.bounds) {
+            val visualizer = viewBox(drawer.bounds) {
                 visualizeWorkflow(wf1)
             }
 
             extend {
                 drawer.clear(ColorRGBa.BLACK)
 
-                vb.draw()
+                visualizer.draw()
 
             }
         }

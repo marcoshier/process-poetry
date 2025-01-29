@@ -1,8 +1,10 @@
 package output
 
-class Image(
+class InteractiveOutput(
 
 
 ): Output() {
+
+
 
 }

@@ -1,11 +1,5 @@
 package input
 
-import items.MediaItem
-import registry.Registerable
+import registry.Registrable
 
-abstract class Input: Registerable() {
-
-    val mediaItems = mutableListOf<MediaItem>()
-
-
-}
+abstract class Input: Registrable()
