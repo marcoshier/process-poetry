@@ -2,11 +2,10 @@ package tools
 
 import Visualizable
 import body.Body
-import visualizer.Colors
-import visualizer.Properties
-import kotlin.random.Random
+import registry.Colors
+import registry.VisualizerProperties
 
-@Properties(
+@VisualizerProperties(
     Colors.ORANGE_SHADE_1_TINT_1,
     0.2,
     Toolkit::class

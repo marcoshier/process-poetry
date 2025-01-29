@@ -1,8 +1,8 @@
 package tools
 
-import lib.ImageItem
-import lib.MediaItem
-import lib.VideoItem
+import items.ImageItem
+import items.MediaItem
+import items.VideoItem
 import org.openrndr.extra.noise.uniform
 
 class Archive() {

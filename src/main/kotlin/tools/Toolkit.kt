@@ -1,25 +1,19 @@
 package tools
 
-import Visualizable
-import visualizer.Colors
-import visualizer.Properties
+import registry.VisualizerProperties
 
-@Properties(Colors.ORANGE, 0.4)
-class Toolkit: Visualizable() {
-    val tools = mutableListOf<Tool>()
-
-    fun add(tool: Tool) {
-        tools.add(tool)
-    }
-}
+//@VisualizerProperties(Colors.ORANGE, 0.4)
+//class Toolkit: Visualizable() {
+//    val tools = mutableListOf<Tool>()
+//
+//    fun add(tool: Tool) {
+//        tools.add(tool)
+//    }
+//}
 
 
-interface Tool {
+abstract class ToolInstance() {
 
-    val input: Any
-    val output: Any
 
-    fun work() {
 
-    }
 }

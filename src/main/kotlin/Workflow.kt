@@ -1,19 +1,37 @@
-import io.Input
-import lib.MediaItem
+import input.Input
+import output.Output
+import registry.Registry
+import registry.getMetadata
+import registry.isolated
+import registry.Metadata
 
-class Workflow() {
+class Workflow {
 
-    val input = mutableListOf<Input>()
-    val output = mutableListOf<Output>()
+    val inputMetadata = mutableListOf<Metadata<Input>>()
+    val outputMetadata = mutableListOf<Metadata<Output>>()
 
     fun gatherInput(inputCollector: () -> Unit) {
-        inputCollector()
+        Registry.isolated {
+            inputCollector()
+
+            val metadata = getMetadata<Input>()
+
+            inputMetadata.add(
+                metadata
+            )
+        }
     }
 
-    fun produceOutput(outputCollector: () -> Unit) {
-        outputCollector()
+    fun produceOutput(outputCollector: (List<Input>) -> Unit) {
+        Registry.isolated {
+            outputCollector(Registry.registeredInput)
+
+            val metadata = getMetadata<Output>()
+
+            outputMetadata.add(
+                metadata
+            )
+        }
     }
 
 }
-
-val activeWorkflow = Workflow()

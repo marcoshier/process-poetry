@@ -103,13 +103,20 @@ plugins {
     alias(libs.plugins.versions)
 }
 
+sourceSets {
+    create("demo") {
+        compileClasspath += sourceSets.main.get().output + sourceSets.main.get().compileClasspath
+        runtimeClasspath += sourceSets.main.get().output + sourceSets.main.get().runtimeClasspath
+    }
+}
+
 repositories {
     mavenCentral()
     mavenLocal()
 }
 
 dependencies {
-
+    implementation(kotlin("reflect"))
 //    implementation(libs.jsoup)
 //    implementation(libs.gson)
 //    implementation(libs.csv)
