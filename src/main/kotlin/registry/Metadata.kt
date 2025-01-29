@@ -6,10 +6,11 @@ import kotlin.reflect.KClass
 
 
 data class Metadata <out T>(
-    val properties: Map<KClass<out Registrable>, Annotation?>
+    val visualizables: Map<KClass<out Registrable>, Visualizable?>,
+    val connections: Map<KClass<out Registrable>, Visualizable> = mapOf()
 )
 
-fun  <T> getMetadata(): Metadata<T> {
+fun <T> getVisualizerMetadata(): Metadata<T> {
     val properties = Registry.getVisualData()
 
     return Metadata(properties)

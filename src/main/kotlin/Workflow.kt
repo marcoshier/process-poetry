@@ -5,7 +5,7 @@ import registry.*
 class Workflow {
 
     val allInputs = mutableListOf<Input>()
-    val allOutputs = mutableListOf<Input>()
+    val allOutputs = mutableListOf<Output>()
 
     val inputMetadata = mutableListOf<Metadata<Input>>()
     val outputMetadata = mutableListOf<Metadata<Output>>()
@@ -14,17 +14,14 @@ class Workflow {
         Registry.isolated {
             inputCollector()
 
-            val metadata = getMetadata<Input>()
-
-            println(metadata)
-
-            val inputs = getInputs()
-
-            println(inputs)
+            val metadata = getVisualizerMetadata<Input>()
 
             inputMetadata.add(
                 metadata
             )
+
+
+            val inputs = getInputs()
 
             allInputs.addAll(inputs)
         }
@@ -34,15 +31,21 @@ class Workflow {
         Registry.isolated {
             outputCollector(allInputs)
 
-            val metadata = getMetadata<Output>()
-            val outputs = getOutputs()
+            val metadata = getVisualizerMetadata<Output>()
 
             outputMetadata.add(
                 metadata
             )
 
+            val outputs = getOutputs()
+
             outputs.addAll(outputs)
         }
+    }
+
+
+    fun buildGraph() {
+
     }
 
 }
