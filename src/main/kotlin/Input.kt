@@ -1,12 +1,10 @@
-fun gatherInput(inputCollector: () -> Unit) {
-    inputCollector()
-}
-
 interface WebInput
 
 class Instagram: WebInput {
 
     fun visitProfile(profile: String): InstagramProfile {
+        val prof = InstagramProfile(profile)
+        activeWorkflow.registerInput()
         return InstagramProfile(profile)
     }
 
@@ -25,6 +23,7 @@ val instagram = Instagram()
 class Arena: WebInput {
 
     fun visitChannel(ch: String): ArenaChannel {
+        activeWorkflow.registerInput()
         return ArenaChannel().apply {
             channel = ch
         }
@@ -38,14 +37,33 @@ class Arena: WebInput {
 
     class ArenaChannel() {
         var channel: String = ""
+
+        // scraping?
     }
 }
 
 val are_na = Arena()
 
-class Slack(channel: String): WebInput {
+class Slack: WebInput {
 
-    fun visitChannel(vararg profile: String) {
+    fun visitChannel(ch: String): SlackChannel {
+        activeWorkflow.registerInput()
+        return SlackChannel(ch)
+    }
 
+    fun visitChannels(vararg channels: String): List<SlackChannel> {
+        return channels.map { channel ->
+            visitChannel(channel)
+        }
+    }
+
+    class SlackChannel(id: String) {
+        // scraping?
+
+        fun readLatestMessages() {
+
+        }
     }
 }
+
+val slack = Slack()

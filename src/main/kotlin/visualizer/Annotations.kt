@@ -15,7 +15,8 @@ enum class Colors(val color: ColorRGBa) {
     TRANSPARENT(ColorRGBa.TRANSPARENT),
 }
 
-@Target(AnnotationTarget.CLASS, AnnotationTarget.TYPEALIAS, AnnotationTarget.LOCAL_VARIABLE)
+@Target(AnnotationTarget.CLASS, AnnotationTarget.TYPEALIAS,
+    AnnotationTarget.LOCAL_VARIABLE)
 annotation class Properties(
     val highlightColor: Colors ,
     val relativeSize: Double,

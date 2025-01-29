@@ -16,8 +16,8 @@ abstract class Visualizable {
 }
 
 fun getProperties(): Map<Class<*>, Annotation> {
-    val props =  ClassRegistry.registeredClasses.associate {
-        it to it.annotations.toList().first { it is Properties }
+    val props = ClassRegistry.registeredClasses.associateWith {
+        it.annotations.toList().first { it is Properties }
     }
 
     ClassRegistry.registeredClasses.clear()

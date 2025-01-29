@@ -16,7 +16,7 @@ class Web: Tool, Visualizable() {
     override val input: Any = listOf("mouse", "keyboard")
     override val output: Any = listOf("information")
 
-    fun open(vararg input: WebInput) {
+    fun open(action: () -> Unit) {
 
     }
 }

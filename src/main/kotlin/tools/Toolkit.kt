@@ -4,11 +4,7 @@ import Visualizable
 import visualizer.Colors
 import visualizer.Properties
 
-@Properties(
-    Colors.ORANGE,
-    0.4
-)
-
+@Properties(Colors.ORANGE, 0.4)
 class Toolkit: Visualizable() {
     val tools = mutableListOf<Tool>()
 
